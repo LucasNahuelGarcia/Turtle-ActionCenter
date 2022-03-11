@@ -7,18 +7,20 @@
 win="${1:-}"
 width="${2:-}"
 height="${3:-}"
-positionDescription="${4}"
+positionDescription="${4:-}"
+showHideToggle="${5:-}"
 resolutionX=$(xrandr -q | head -n1 | awk '{print $8}');
 resolutionY=$(xrandr -q | head -n1 | awk '{print $10}' | cut -d ',' -f 1)
 posX=0
 posY=0
+frameCorrection=2
 
 ### Setting default width and height as max resolution
-if [[ "$width" == "0" ]]
+if [[ "$width" == "full" ]]
 then
     width=${resolutionX}
 fi
-if [[ "$height" == "0" ]]
+if [[ "$height" == "full" ]]
 then
     height=${resolutionY}
 fi
@@ -29,9 +31,15 @@ then
     posX=$(($resolutionX - $width))
 fi
 
+posY=$(($posY-$frameCorrection))
+
 xdotool windowunmap --sync ${win}
+
 xdotool windowsize --sync ${win} ${width} ${height}
 xdotool windowmove --sync ${win} ${posX} ${posY}
 xprop -id "${win}" -format _NET_WM_WINDOW_TYPE 32a -set _NET_WM_WINDOW_TYPE "_NET_WM_WINDOW_TYPE_DOCK"
+xprop -id "${win}" -f _MOTIF_WM_HINTS 32c -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
 # xprop -id "${win}" -format _NET_WM_STRUT_PARTIAL 32cccccccccccc -set _NET_WM_STRUT_PARTIAL "0,0,${height},0,0,0,0,0,0,${width},0,0"
+
 xdotool windowmap ${win}
+echo ${win} > ./dockID
