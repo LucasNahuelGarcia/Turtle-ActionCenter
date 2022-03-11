@@ -2,8 +2,8 @@
 
 switchState=`cat ./switchState`
 dockID=`cat ./dockID`
-echo $switchState
-echo test $switchState="on"
+# echo $switchState
+# echo test $switchState="on"
 if [[ "$switchState" == "on" ]]
 then
     echo "turning off"
