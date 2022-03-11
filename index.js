@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 
 const createWindow = () => {
     const win = new BrowserWindow({
-        title: 'LuquiDock',
+        title: 'Turtle-ActionCenter',
         width: 1920,
         height: 600,
         frame: false,
