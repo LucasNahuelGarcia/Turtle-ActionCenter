@@ -1,6 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 const { exec } = require("child_process");
 
+const configFolder = app.getPath('appData') + "/turtle-actionCenter/";
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -20,8 +21,9 @@ const createWindow = () => {
         closable: false,
     });
     win.setResizable(false);
-    win.loadURL('https://www.accuweather.com/es/ar/buenos-aires/7894/weather-forecast/7894');
-    // win.loadFile('index.html');
+
+    // win.loadURL('https://www.accuweather.com/es/ar/buenos-aires/7894/weather-forecast/7894');
+    win.loadFile(configFolder + 'index.html');
     const windowId = win.getMediaSourceId().split(':')[1];
     console.log('este es el handle de la ventana: ' + windowId);
 
