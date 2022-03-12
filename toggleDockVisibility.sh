@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
-switchState=`cat ./switchState`
-dockID=`cat ./dockID`
-# echo $switchState
-# echo test $switchState="on"
+tempFolder="/tmp/turtle-actionCenter"
+mkdir $tempFolder
+
+switchStateFile="$tempFolder/switchState"
+windowIDFile="$tempFolder/dockID"
+
+switchState=$( cat $switchStateFile )
+dockID=$( cat $windowIDFile )
+
+echo $dockID
 if [[ "$switchState" == "on" ]]
 then
     echo "turning off"
-    echo "off" > ./switchState
+    echo "off" > $switchStateFile
     xdotool windowunmap ${dockID}
 else
     echo "turning on"
-    echo "on" > ./switchState
+    echo "on" > $switchStateFile
     xdotool windowmap ${dockID}
 fi

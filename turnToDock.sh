@@ -42,4 +42,4 @@ xprop -id "${win}" -f _MOTIF_WM_HINTS 32c -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0
 # xprop -id "${win}" -format _NET_WM_STRUT_PARTIAL 32cccccccccccc -set _NET_WM_STRUT_PARTIAL "0,0,${height},0,0,0,0,0,0,${width},0,0"
 
 xdotool windowmap ${win}
-echo ${win} > ./dockID
+echo ${win} > /tmp/turtle-actionCenter/dockID
