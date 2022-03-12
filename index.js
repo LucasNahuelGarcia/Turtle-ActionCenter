@@ -1,32 +1,12 @@
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require('electron');
+const configFolder = app.getPath('appData') + "/turtle-actionCenter/";
+const { createWindow } = require(configFolder + 'index.js');
 const { exec } = require("child_process");
 
-const configFolder = app.getPath('appData') + "/turtle-actionCenter/";
-
-const createWindow = () => {
-    const win = new BrowserWindow({
-        title: 'Turtle-ActionCenter',
-        width: 1920,
-        height: 600,
-        frame: false,
-        titleBarStyle: 'hidden',
-        transparent: true,
-        movable: true,
-        center: true,
-        kiosk: false,
-        fullscreen: false,
-        frame: false,
-        minimizable: false,
-        maximizable: false,
-        closable: false,
-    });
-    win.setResizable(false);
-
-    // win.loadURL('https://www.accuweather.com/es/ar/buenos-aires/7894/weather-forecast/7894');
-    win.loadFile(configFolder + 'index.html');
+app.whenReady().then(() => {
+    const win = createWindow();
     const windowId = win.getMediaSourceId().split(':')[1];
     console.log('este es el handle de la ventana: ' + windowId);
-
     exec("./turnToDock.sh " + windowId + " 800 full right", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
@@ -38,11 +18,4 @@ const createWindow = () => {
         }
         console.log(`stdout: ${stdout}`);
     });
-};
-
-app.whenReady().then(() => {
-    const ventanas = BrowserWindow.getAllWindows().length > 0;
-    if (ventanas)
-        app.quit();
-    createWindow();
 });
