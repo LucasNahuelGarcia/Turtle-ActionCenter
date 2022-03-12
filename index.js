@@ -7,7 +7,7 @@ app.whenReady().then(() => {
     const win = createWindow();
     const windowId = win.getMediaSourceId().split(':')[1];
     console.log('este es el handle de la ventana: ' + windowId);
-    exec("./turnToDock.sh " + windowId + " 800 full right", (error, stdout, stderr) => {
+    exec("./turnToDock.sh " + windowId + " 500 full right", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -18,4 +18,9 @@ app.whenReady().then(() => {
         }
         console.log(`stdout: ${stdout}`);
     });
+
 });
+
+const interval = setInterval(function() {
+    const window = BrowserWindow.getAllWindows()[0];
+}, 5000);
