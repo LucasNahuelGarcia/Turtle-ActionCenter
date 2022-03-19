@@ -39,6 +39,7 @@ xdotool windowsize --sync ${win} ${width} ${height}
 xdotool windowmove --sync ${win} ${posX} ${posY}
 xprop -id "${win}" -format _NET_WM_WINDOW_TYPE 32a -set _NET_WM_WINDOW_TYPE "_NET_WM_WINDOW_TYPE_DOCK"
 xprop -id "${win}" -f _MOTIF_WM_HINTS 32c -set _MOTIF_WM_HINTS "0x2, 0x0, 0x0, 0x0, 0x0"
+xprop -f _NET_WM_STATE 32a -id "${win}" -set _NET_WM_STATE _NET_WM_STATE_ABOVE
 # xprop -id "${win}" -format _NET_WM_STRUT_PARTIAL 32cccccccccccc -set _NET_WM_STRUT_PARTIAL "0,0,${height},0,0,0,0,0,0,${width},0,0"
 
 xdotool windowmap ${win}
